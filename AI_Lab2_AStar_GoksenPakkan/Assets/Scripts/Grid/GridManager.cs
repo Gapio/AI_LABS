@@ -13,8 +13,9 @@ namespace Grid
         
         [Header("Prefabs & Materials")]
         [SerializeField] private GameObject tilePrefab;
-        [SerializeField] private Material walkableMaterial;
-        [SerializeField] private Material wallMaterial;
+        [SerializeField] public Material walkableMaterial;
+        [SerializeField] public Material wallMaterial;
+        [SerializeField] public Material pathMaterial;
         
         private Node[,] _nodes;
         private readonly Dictionary<GameObject, Node> _tileToNode = new();
@@ -84,7 +85,7 @@ namespace Grid
                 }
             }
         }
-        private Node GetNode(int x, int y)
+        public Node GetNode(int x, int y)
         {
             if (x < 0 || x >= width || y < 0 || y >= height)
                 return null;
@@ -98,8 +99,7 @@ namespace Grid
             return GetNode(x, y);
         }
         
-        public IEnumerable<Node> GetNeighbours(Node node, bool
-            allowDiagonals = false)
+        public IEnumerable<Node> GetNeighbours(Node node, bool allowDiagonals = false)
         {
             int x = node.X;
             int y = node.Y;
@@ -121,13 +121,25 @@ namespace Grid
             node.Walkable = walkable;
             SetTileMaterial(node, walkable ? walkableMaterial : wallMaterial);
         }
+        
 
-        private void SetTileMaterial(Node node, Material mat)
+        public void SetTileMaterial(Node node, Material mat)
         {
             var meshRenderer = node.Tile.GetComponent<MeshRenderer>();
             if (meshRenderer != null && mat != null)
             {
                 meshRenderer.material = mat;
+            }
+        }
+
+        public void ResetTileMaterials()
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    SetTileMaterial(GetNode(x, y), null);
+                }
             }
         }
         
