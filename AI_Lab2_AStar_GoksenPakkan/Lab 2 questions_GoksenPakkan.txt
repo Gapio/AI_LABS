@@ -1,0 +1,18 @@
+Lab 2 questions
+
+1- Nodes are the tiles generated and edges are the edges of the tiles, kind of like an imaginary path between the tiles, north south west and east before we allow diagonal movement.
+2- since coordinates refer to the position in the grid and not actual world position, we multiply is by cellsize to find actual distance between tiles and put things where they should be in the 3d world. Also were using z instead of y since y is up in unity and not right.
+3- we have a check that returns null if we try to access outside bounds which essentially means we do nothing by handling instead of crashing 
+
+4- We use ScreenPointToRay(Vector3)
+5- As humans we can understand what is a possible path so we can see for ourselves if our pathfinding is correct and working when we have clearly communicated non-walkable tile.
+6- Its an unwalkable tile, so as a node its cost is infinite and the edges to that node should be unused.
+
+7- for g(n) its neighbour.GCost and we calculate it at tentativeG = currentNode.GCost + _stepCost. h(n) its heuristic calculation node.HCost so whenever we use the helper function. f(n) is calculated at the node class with public float FCost => GCost + HCost;
+8- it basically asks if the new path is cheaper than the best one we have, so its essentially a way to guarantee the shortest path.
+9- A* starts breaking down if we overestimate, it would return paths that is not the shortest, i think it would turn into a best first search. It would still find a path, just not the optimal one.
+10- it turns into Dijkstra's algorithm as a* is just Dijkstra with heuristic. were essentially removing heuristic if we set h(n) = 0
+11- It would try to go for the goal as straight as possible, most likely ignoring the best possible path. So there will be a chance its not the shortest path.
+
+12- Computing a path is designating the way/road for two places. Moving along that path is following the road to reach from start to the end
+13- Nothing, i have a nullreference check so the game doesn't crash.
