@@ -16,6 +16,8 @@ namespace Grid
         [SerializeField] public Material walkableMaterial;
         [SerializeField] public Material wallMaterial;
         [SerializeField] public Material pathMaterial;
+        [SerializeField] public Material startMaterial;
+        [SerializeField] public Material goalMaterial;
         
         private Node[,] _nodes;
         private readonly Dictionary<GameObject, Node> _tileToNode = new();

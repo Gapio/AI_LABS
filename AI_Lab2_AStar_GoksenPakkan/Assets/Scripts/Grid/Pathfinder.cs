@@ -9,9 +9,13 @@ namespace Grid
         private GridManager _gridManager;
         private readonly float _stepCost = 1f;
         private InputAction _findPathAction;
-        private List<Node> _calculatedPath;
-        public GameObject tilePrefab;
-        
+        public List<Node> CalculatedPath;
+
+        private void Awake()
+        {
+            _gridManager = GetComponent<GridManager>();
+        }
+
         private void OnEnable()
         {
             _findPathAction = new InputAction(name: "findPath", type: InputActionType.Button, binding: "<Mouse>/rightButton");
@@ -19,6 +23,17 @@ namespace Grid
             _findPathAction.Enable();
 
         }
+        
+        private void OnDisable()
+        {
+            if (_findPathAction != null)
+            {
+                _findPathAction.performed -= OnFindPathPerformed;
+                _findPathAction.Disable();
+                _findPathAction.Dispose();
+            }
+        }
+
 
         private void OnFindPathPerformed(InputAction.CallbackContext context)
         {
@@ -41,10 +56,12 @@ namespace Grid
                 }
             }
 
-            _calculatedPath = FindPath(startNode, goalNode);
+            CalculatedPath = FindPath(startNode, goalNode);
+            _gridManager.SetTileMaterial(startNode, _gridManager.startMaterial);
+            _gridManager.SetTileMaterial(goalNode, _gridManager.goalMaterial);
         }
-        
-        public List<Node> FindPath(Node startNode, Node goalNode)
+
+        private List<Node> FindPath(Node startNode, Node goalNode)
         {
 
             // 1. Reset node costs
@@ -68,7 +85,7 @@ namespace Grid
                 Node currentNode = openSet[0];
                 for (int i = 1; i < openSet.Count; i++)
                 {
-                    if (openSet[i].HCost < currentNode.HCost)
+                    if (openSet[i].FCost < currentNode.FCost || (Mathf.Approximately(openSet[i].FCost, currentNode.FCost) && openSet[i].HCost < currentNode.HCost))
                     {
                         currentNode = openSet[i];
                     }
@@ -104,7 +121,7 @@ namespace Grid
 
                 foreach (Node neighbour in _gridManager.GetNeighbours(currentNode))
                 {
-                    if (!closedSet.Contains(neighbour) || neighbour == null || neighbour.Walkable == false)
+                    if (closedSet.Contains(neighbour) || neighbour == null || !neighbour.Walkable)
                     {
                         continue;
                     }
