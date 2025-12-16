@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 1001851715}
   - component: {fileID: 1001851714}
   - component: {fileID: 1001851713}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -993,7 +993,7 @@ Transform:
   m_GameObject: {fileID: 1001851712}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.619, y: 0.98, z: 8.22}
+  m_LocalPosition: {x: 21.76, y: 0.96, z: 15.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1152,6 +1152,7 @@ GameObject:
   - component: {fileID: 1717274067}
   - component: {fileID: 1717274066}
   - component: {fileID: 1717274072}
+  - component: {fileID: 1717274073}
   - component: {fileID: 1717274071}
   m_Layer: 0
   m_Name: Guard
@@ -1267,7 +1268,7 @@ Transform:
   m_GameObject: {fileID: 1717274065}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.385, y: 0.93, z: 2.27}
+  m_LocalPosition: {x: 24.385, y: 0.997, z: 2.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1285,12 +1286,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: -5316222511914941562, guid: c3be6413ffe445c4a9864dd3289bfc2a, type: 2}
+  m_Graph: {fileID: 3969664432326248165, guid: 53877a8f63f647341af53028b4a413c7, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 4407987546640613586
-  - rid: 4407987548482175778
-  - rid: 4407987548482175779
-  m_OriginalGraph: {fileID: -5316222511914941562, guid: c3be6413ffe445c4a9864dd3289bfc2a, type: 2}
+  - rid: 5790609150484414506
+  - rid: 5790609150484414565
+  - rid: 5790609150484414569
+  m_OriginalGraph: {fileID: 3969664432326248165, guid: 53877a8f63f647341af53028b4a413c7, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -1304,21 +1306,13 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 1717274065}
-    - rid: 4407987548482175778
-      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 13767289173002620654
-          m_Value1: 14662019948009417435
-        Name: Target
-        m_Value: {fileID: 1001851712}
-    - rid: 4407987548482175779
+    - rid: 5790609150484414506
       type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
-          m_Value0: 10971267391072402211
-          m_Value1: 11554674442667338867
-        Name: Waypoints
+          m_Value0: 4041322104146099922
+          m_Value1: 18034003635376605042
+        Name: PointsOfWay
         m_Value:
         - {fileID: 432165801}
         - {fileID: 191072361}
@@ -1326,7 +1320,45 @@ MonoBehaviour:
         - {fileID: 1637456038}
         - {fileID: 619110812}
         - {fileID: 2025669061}
+    - rid: 5790609150484414565
+      type: {class: 'BlackboardVariable`1[[System.Boolean, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11924377025885862811
+          m_Value1: 7272572527590784342
+        Name: HasLastKnownPosition
+        m_Value: 0
+    - rid: 5790609150484414569
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 665696791192362146
+          m_Value1: 10106908467941554808
+        Name: Target
+        m_Value: {fileID: 0}
 --- !u!114 &1717274072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717274065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c13333769f64ad4099d0492d0cd68bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eyes: {fileID: 1717274070}
+  viewDistance: 15
+  viewAngle: 90
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  occlusionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  behaviorTree: {fileID: 3969664432326248165, guid: 53877a8f63f647341af53028b4a413c7, type: 2}
+--- !u!114 &1717274073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1340,11 +1372,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Player
   viewDistance: 10
-  viewAngleDegrees: 45
+  viewAngleDegrees: 90
   eyes: {fileID: 1717274070}
   occlusionMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!1 &1762237829
 GameObject:
   m_ObjectHideFlags: 0
