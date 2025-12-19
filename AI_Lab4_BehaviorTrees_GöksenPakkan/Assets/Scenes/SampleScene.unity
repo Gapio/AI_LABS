@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5cfb75c190e5a43a4523d44c88f2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+  moveSpeed: 9
   faceMoveDirection: 1
 --- !u!136 &1001851714
 CapsuleCollider:
@@ -993,12 +993,120 @@ Transform:
   m_GameObject: {fileID: 1001851712}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.76, y: 0.96, z: 15.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 12.41, y: 1.37, z: -11.78}
+  m_LocalScale: {x: 1.5851015, y: 1.5851015, z: 1.5851015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1226255989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1226255990}
+  - component: {fileID: 1226255993}
+  - component: {fileID: 1226255992}
+  - component: {fileID: 1226255991}
+  m_Layer: 6
+  m_Name: Eyes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1226255990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226255989}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.01, y: 0.346, z: 0.4}
+  m_LocalScale: {x: 0.66341, y: 0.28969, z: 0.61143}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1717274070}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1226255991
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226255989}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1226255992
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226255989}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1226255993
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226255989}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1296897259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,10 +1259,9 @@ GameObject:
   - component: {fileID: 1717274068}
   - component: {fileID: 1717274067}
   - component: {fileID: 1717274066}
-  - component: {fileID: 1717274072}
-  - component: {fileID: 1717274073}
   - component: {fileID: 1717274071}
-  m_Layer: 0
+  - component: {fileID: 1717274072}
+  m_Layer: 6
   m_Name: Guard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1271,7 +1378,8 @@ Transform:
   m_LocalPosition: {x: 24.385, y: 0.997, z: 2.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1226255990}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1717274071
@@ -1286,13 +1394,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: 3969664432326248165, guid: 53877a8f63f647341af53028b4a413c7, type: 2}
+  m_Graph: {fileID: -5316222511914941562, guid: c3be6413ffe445c4a9864dd3289bfc2a, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 4407987546640613586
-  - rid: 5790609150484414506
-  - rid: 5790609150484414565
-  - rid: 5790609150484414569
-  m_OriginalGraph: {fileID: 3969664432326248165, guid: 53877a8f63f647341af53028b4a413c7, type: 2}
+  - rid: 5790609223137362733
+  - rid: 5790609223137362744
+  m_OriginalGraph: {fileID: -5316222511914941562, guid: c3be6413ffe445c4a9864dd3289bfc2a, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -1306,13 +1413,13 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 1717274065}
-    - rid: 5790609150484414506
+    - rid: 5790609223137362733
       type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
-          m_Value0: 4041322104146099922
-          m_Value1: 18034003635376605042
-        Name: PointsOfWay
+          m_Value0: 10971267391072402211
+          m_Value1: 11554674442667338867
+        Name: Waypoints
         m_Value:
         - {fileID: 432165801}
         - {fileID: 191072361}
@@ -1320,45 +1427,15 @@ MonoBehaviour:
         - {fileID: 1637456038}
         - {fileID: 619110812}
         - {fileID: 2025669061}
-    - rid: 5790609150484414565
-      type: {class: 'BlackboardVariable`1[[System.Boolean, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 11924377025885862811
-          m_Value1: 7272572527590784342
-        Name: HasLastKnownPosition
-        m_Value: 0
-    - rid: 5790609150484414569
+    - rid: 5790609223137362744
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
-          m_Value0: 665696791192362146
-          m_Value1: 10106908467941554808
+          m_Value0: 13767289173002620654
+          m_Value1: 14662019948009417435
         Name: Target
         m_Value: {fileID: 0}
 --- !u!114 &1717274072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717274065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c13333769f64ad4099d0492d0cd68bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eyes: {fileID: 1717274070}
-  viewDistance: 15
-  viewAngle: 90
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  occlusionMask:
-    serializedVersion: 2
-    m_Bits: 1
-  behaviorTree: {fileID: 3969664432326248165, guid: 53877a8f63f647341af53028b4a413c7, type: 2}
---- !u!114 &1717274073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1373,10 +1450,10 @@ MonoBehaviour:
   targetTag: Player
   viewDistance: 10
   viewAngleDegrees: 90
-  eyes: {fileID: 1717274070}
+  eyes: {fileID: 1226255990}
   occlusionMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 0
 --- !u!1 &1762237829
 GameObject:
   m_ObjectHideFlags: 0

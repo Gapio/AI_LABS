@@ -1,70 +1,71 @@
 using System;
 using Unity.Behavior;
+using Unity.Properties;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
-using Unity.Properties;
-using UnityEngine.Serialization;
-using static Unity.Behavior.Node.Status;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "Update Perception", description: "Updates Target/LOS/LastKnownPosition from GuardSensors", 
     story: "Update perception and write to the blackboard.", category: "Action/Sensing", id: "81bb6fa6b4c9afec2031be95c2afdcd1")]
 public class UpdatePerceptionAction : Action
 {
-    [FormerlySerializedAs("Target")] [SerializeReference] public BlackboardVariable<GameObject>
-        target;
-    [FormerlySerializedAs("HasLineOfSight")] [SerializeReference] public BlackboardVariable<bool>
-        hasLineOfSight;
-    [FormerlySerializedAs("LastKnownPosition")] [SerializeReference] public BlackboardVariable<Vector3>
-        lastKnownPosition;
-    [FormerlySerializedAs("TimeSinceLastSeen")] [SerializeReference] public BlackboardVariable<float>
-        timeSinceLastSeen;
-    protected override Status OnStart()
+    [SerializeReference]
+    public BlackboardVariable<GameObject> Self;
+
+    [SerializeReference]
+    public BlackboardVariable<GameObject> Target;
+
+    [SerializeReference]
+    public BlackboardVariable<bool> HasLineOfSight;
+
+    [SerializeReference]
+    public BlackboardVariable<Vector3>
+
+    LastKnownPosition;
+
+    [SerializeReference]
+    public BlackboardVariable<float>
+
+    TimeSinceLastSeen;
+
+    protected override Node.Status OnStart()
     {
-// Ensure we have sane defaults.
-        if (timeSinceLastSeen is { Value: < 0f })
-            timeSinceLastSeen.Value = 9999f;
-        return Success;
+        if (TimeSinceLastSeen != null && TimeSinceLastSeen.Value < 0f)
+            TimeSinceLastSeen.Value = 9999f;
+        return Node.Status.Running;
     }
-    protected override Status OnUpdate()
+    protected override Node.Status OnUpdate()
     {
-        var sensors = GameObject != null ?
-            GameObject.GetComponent<GuardSensors>() : null;
+        var owner = Self != null ? Self.Value : null;
+        var sensors = owner != null ? owner.GetComponent<GuardSensors>() : null;
+
         if (sensors == null)
         {
-// No sensors attached -> treat as "can't see anything"
-            if (hasLineOfSight != null) hasLineOfSight.Value =
-                false;
-            if (timeSinceLastSeen != null)
-                timeSinceLastSeen.Value += Time.deltaTime;
-            return Success;
+            if (HasLineOfSight != null) HasLineOfSight.Value = false;
+            if (TimeSinceLastSeen != null)
+                TimeSinceLastSeen.Value += Time.deltaTime;
+            return Node.Status.Success;
         }
-        bool sensed = sensors.TrySenseTarget(
-            out GameObject sensedTarget,
-            out Vector3 sensedPos,
-            out bool hasLos
-        );
-        if (sensed && hasLos)
+
+        bool sensed = sensors.TrySenseTarget(out GameObject sensedTarget,
+                                             out Vector3 sensedPos,
+                                             out bool hasLOS);
+
+        if (sensed && hasLOS)
         {
-            if (target != null) target.Value = sensedTarget;
-            if (hasLineOfSight != null) hasLineOfSight.Value =
-                true;
-            if (lastKnownPosition != null)
-                lastKnownPosition.Value = sensedPos;
-            if (timeSinceLastSeen != null)
-                timeSinceLastSeen.Value = 0f;
+            if (Target != null) Target.Value = sensedTarget;
+            if (HasLineOfSight != null) HasLineOfSight.Value = true;
+            if (LastKnownPosition != null) LastKnownPosition.Value = sensedPos;
+            if (TimeSinceLastSeen != null) TimeSinceLastSeen.Value = 0f;
         }
         else
         {
-// Keep Target as-is (we "remember" who we were chasing),
-// but mark that we don't currently have LOS.
-            if (hasLineOfSight != null) hasLineOfSight.Value =
-                false;
-            if (timeSinceLastSeen != null)
-                timeSinceLastSeen.Value += Time.deltaTime;
+            if (HasLineOfSight != null) HasLineOfSight.Value = false;
+            if (TimeSinceLastSeen != null)
+                TimeSinceLastSeen.Value += Time.deltaTime;
         }
-// This node is a fast "service-like" update; it finishes immediately each tick.
-        return Success;
+
+        return Node.Status.Success;
     }
 }
 
