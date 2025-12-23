@@ -1,0 +1,7 @@
+1- FSM was much easier to figure out as I wrote everything so if something didn't work debugging was much simpler, additionally for ai with not that many options that it can do FSM seems like the easier and more readable way of implementing. Behaviour tree was difficult to figure out at first because of the graph system but once you figure it out it opens many possibilities with the correct logic to look at it. Additionally behavior tree is easier to set up once you know how it works. Its a steeper learning curve but makes it easier to work.
+
+2- I believe the guard would stop and proceed to do the next thing it is supposed to do in the tree, so back to patrolling.
+
+3- We had target, has LoS, LastKnownPosition, search duration, forget after seconds, time since last seen and waypoints. These are necessary for the conditions of the sequences, inside the node we use them as the conditions and we update them for it to actually work at runtime.
+
+4- I would add 2 more sensors, sound and a small area around it and a sound ping on player, so the guard can hear the enemy and go there as a "last heard position" and if the player sneaks up to the guard too close it just knows. Probably some sort of "do something with the player" could be attack, could be alert other enemies etc. I think movement is mostly fine, unity pathfinding can be customized as well so it is very useful.
