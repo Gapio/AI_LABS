@@ -1,0 +1,7 @@
+1- Nodes are ulong bits inside the goapstate and edges are basically doing anything, doing an action. Its similar to lab 2 as both try to find the "action" with the least cost, ist just that the action is not a path but actually a task to do. Also we dont use heuristic in goap.
+
+2- Movetoplayer could return success and the guard could think he is at the player if player for example teleports on the correct timing before checking the distance, so state says at the player is true but reality is not true. In my system, guard starts tahPlayerAction but that action checks distance again and returns failure, which guard then returns to patrolling
+
+3- GoapFacts, goals and planner are declarative, most actions (like navmesh movement) and guardsensors are procedural
+
+4- If the guard is chasing the player and player leaves the detection, the guard replans back to patrolling which is correct as otherwise it would just stand there stuck.
