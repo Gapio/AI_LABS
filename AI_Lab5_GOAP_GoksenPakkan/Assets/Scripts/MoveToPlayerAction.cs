@@ -7,10 +7,11 @@ public class MoveToPlayerAction : GoapActionBase
     {
         actionName = "Move To Player";
         cost = 1f;
-        preMask = GoapBits.Mask(GoapFact.SeesPlayer);
+        preMask = GoapBits.Mask(GoapFact.SeesPlayer, GoapFact.HasWeapon);
         addMask = GoapBits.Mask(GoapFact.AtPlayer);
         delMask = 0;
     }
+
     public override bool CheckProcedural(GoapContext ctx)
     {
         return ctx.Player != null;
@@ -18,12 +19,13 @@ public class MoveToPlayerAction : GoapActionBase
     public override GoapStatus Tick(GoapContext ctx)
     {
         if (ctx.Player == null) return GoapStatus.Failure;
-        if (ctx.Sensors != null && !ctx.Sensors.SeesPlayer)
-            return GoapStatus.Failure;
+        if (ctx.Sensors != null && !ctx.Sensors.SeesPlayer) return GoapStatus.Failure;
+
         ctx.Agent.SetDestination(ctx.Player.position);
-        if (ctx.Agent.pathPending) return GoapStatus.Running;
-        if (ctx.Agent.remainingDistance <= arriveDistance)
-            return GoapStatus.Success;
+
+        float d = Vector3.Distance(ctx.Agent.transform.position, ctx.Player.position);
+        if (d <= arriveDistance) return GoapStatus.Success;
+
         return GoapStatus.Running;
     }
 }

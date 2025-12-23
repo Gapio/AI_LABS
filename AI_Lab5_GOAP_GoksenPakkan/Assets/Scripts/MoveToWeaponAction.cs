@@ -7,10 +7,11 @@ public class MoveToWeaponAction : GoapActionBase
     {
         actionName = "Move To Weapon";
         cost = 1f;
+        delMask = GoapBits.Mask(GoapFact.AtPlayer);
         preMask = GoapBits.Mask(GoapFact.WeaponExists);
         addMask = GoapBits.Mask(GoapFact.AtWeapon);
-        delMask = 0;
     }
+
     public override bool CheckProcedural(GoapContext ctx)
     {
         return ctx.Weapon != null &&

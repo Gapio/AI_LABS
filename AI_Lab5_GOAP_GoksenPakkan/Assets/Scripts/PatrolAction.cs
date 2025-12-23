@@ -12,7 +12,7 @@ public class PatrolAction : GoapActionBase
         preMask = 0;
         // This is intentionally a "one-step completion" fact.
         addMask = GoapBits.Mask(GoapFact.PatrolStepDone);
-        delMask = 0;
+        delMask = GoapBits.Mask(GoapFact.PlayerTagged, GoapFact.AtPlayer);
     }
     public override void OnEnter(GoapContext ctx)
     {

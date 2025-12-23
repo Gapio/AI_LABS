@@ -22,9 +22,11 @@ public class GoapAgent : MonoBehaviour
     private List<GoapActionBase> _allActions;
     private Queue<GoapActionBase> _plan;
     private GoapActionBase _currentAction;
+
+
     // “Owned” facts: memory/execution facts (e.g., HasWeapon, AtWeapon, AtPlayer, PatrolStepDone, PlayerTagged)
     // Sensor/world facts (SeesPlayer, WeaponExists) are refreshed each tick.
-private ulong _ownedFactsBits = 0;
+    private ulong _ownedFactsBits = 0;
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -42,20 +44,33 @@ private ulong _ownedFactsBits = 0;
 
     void Update()
     {
+        if (sensors != null && sensors.SeesPlayer)
+        {
+            _ownedFactsBits &= ~GoapBits.Mask(GoapFact.PlayerTagged);
+
+            if (_currentAction != null)
+            {
+                _currentAction.OnExit(_ctx);
+                _currentAction = null;
+            }
+
+            _plan = null;
+            _nextAllowedReplanTime = 0f;
+        }
+        Debug.Log($"Sees={sensors.SeesPlayer} PlayerTaggedBit={((_ownedFactsBits & GoapBits.Mask(GoapFact.PlayerTagged)) != 0)}");
+
         GoapState current = BuildCurrentState();
         ulong goalMask = SelectGoalMask(current);
-        // If we have no plan, request one (throttled).
-        if ((_plan == null || _plan.Count == 0) && Time.time >=
-        _nextAllowedReplanTime)
-        {
+        current = BuildCurrentState();
+
+        if ((_plan == null || _plan.Count == 0) && Time.time >= _nextAllowedReplanTime)
             MakePlan(current, goalMask);
-        }
+
         if (_plan == null || _plan.Count == 0) return;
-        // Start next action if needed
+
         if (_currentAction == null)
         {
             _currentAction = _plan.Dequeue();
-            // Procedural check at runtime (not planner-visible)
             if (!_currentAction.CheckProcedural(_ctx))
             {
                 InvalidatePlan(throttle: true);
@@ -63,17 +78,19 @@ private ulong _ownedFactsBits = 0;
             }
             _currentAction.OnEnter(_ctx);
         }
+
         var status = _currentAction.Tick(_ctx);
+
         if (status == GoapStatus.Running) return;
+
         if (status == GoapStatus.Success)
         {
-            // Apply effects only on success
             ApplyActionEffectsToOwnedFacts(_currentAction);
             _currentAction.OnExit(_ctx);
             _currentAction = null;
             return;
         }
-        // Failure: action did not complete; invalidate and replan (throttled)
+
         _currentAction.OnExit(_ctx);
         _currentAction = null;
         InvalidatePlan(throttle: true);
@@ -104,8 +121,12 @@ private ulong _ownedFactsBits = 0;
 
         // - Else: goal is to complete one patrol step
         if (current.Has(GoapFact.SeesPlayer))
+        {
+            _ownedFactsBits &= ~GoapBits.Mask(GoapFact.PlayerTagged);
             return GoapBits.Mask(GoapFact.PlayerTagged);
+        }
 
+        _ownedFactsBits &= ~GoapBits.Mask(GoapFact.PlayerTagged);
         _ownedFactsBits &= ~GoapBits.Mask(GoapFact.PatrolStepDone);
         return GoapBits.Mask(GoapFact.PatrolStepDone);
     }

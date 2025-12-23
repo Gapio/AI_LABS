@@ -29,7 +29,7 @@ public class GuardSensors : MonoBehaviour
             // Sees player only if the first thing hit is the player
             if (hit.transform == player) SeesPlayer = true;
         }
-        Debug.Log($"SENSORS | sees={SeesPlayer}");
+        //Debug.Log($"SENSORS | sees={SeesPlayer}");
 
     }
 

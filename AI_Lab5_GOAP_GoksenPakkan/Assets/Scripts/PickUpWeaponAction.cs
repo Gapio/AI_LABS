@@ -8,7 +8,7 @@ public class PickUpWeaponAction : GoapActionBase
         cost = 1f;
         preMask = GoapBits.Mask(GoapFact.AtWeapon);
         addMask = GoapBits.Mask(GoapFact.HasWeapon);
-        delMask = GoapBits.Mask(GoapFact.AtWeapon);
+        delMask = GoapBits.Mask(GoapFact.AtWeapon, GoapFact.AtPlayer);
     }
     public override bool CheckProcedural(GoapContext ctx)
     {

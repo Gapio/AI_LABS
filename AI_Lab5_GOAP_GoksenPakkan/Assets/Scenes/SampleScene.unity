@@ -845,7 +845,7 @@ MonoBehaviour:
   - {fileID: 773448225}
   - {fileID: 1518683740}
   logPlans: 1
-  minSecondsBetweenReplans: 1
+  minSecondsBetweenReplans: 0.2
 --- !u!114 &806438088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -993,7 +993,8 @@ MonoBehaviour:
   cost: 1
   preMask: 20
   addMask: 64
-  delMask: 0
+  delMask: 16
+  tagDistance: 1.2
 --- !u!114 &806438095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,7 +1011,7 @@ MonoBehaviour:
   cost: 1
   preMask: 8
   addMask: 4
-  delMask: 8
+  delMask: 24
 --- !u!114 &806438096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1027,8 +1028,8 @@ MonoBehaviour:
   cost: 2
   preMask: 0
   addMask: 32
-  delMask: 0
-  arriveDistance: 0.7
+  delMask: 80
+  arriveDistance: 0.67
 --- !u!114 &806438097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,7 +1046,7 @@ MonoBehaviour:
   cost: 1
   preMask: 2
   addMask: 8
-  delMask: 0
+  delMask: 16
   arriveDistance: 0.7
 --- !u!114 &806438098
 MonoBehaviour:
@@ -1061,7 +1062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Move To Player
   cost: 1
-  preMask: 1
+  preMask: 5
   addMask: 16
   delMask: 0
   arriveDistance: 1.2
@@ -1603,7 +1604,7 @@ Transform:
   m_GameObject: {fileID: 1448700767}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.6, y: 0.262, z: 4.8}
+  m_LocalPosition: {x: 11, y: 0.262, z: 3}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2209,7 +2210,7 @@ Transform:
   m_GameObject: {fileID: 1972504231}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.8, y: 0.9, z: -20.6}
+  m_LocalPosition: {x: 4.2, y: 0.9, z: -10.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
