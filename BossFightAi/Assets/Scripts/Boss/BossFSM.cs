@@ -40,6 +40,15 @@ public class BossFSM : MonoBehaviour
     [SerializeField] BossMovement movement;
     [SerializeField] Animator animator;
 
+    [SerializeField] bool debugLogs = true;
+
+    void Log(string msg)
+    {
+        if (!debugLogs) return;
+        Debug.Log($"[BossFSM] {msg}");
+    }
+
+
     State state;
 
     float nextThinkTime;
@@ -150,6 +159,9 @@ public class BossFSM : MonoBehaviour
     {
         if (state == newState) return;
 
+        if (debugLogs)
+            Debug.Log($"[BossFSM] {state} into {newState}");
+
         state = newState;
 
         switch (state)
@@ -164,10 +176,12 @@ public class BossFSM : MonoBehaviour
         }
     }
 
+
     void ChooseAttack(float d)
     {
         if (d <= meleeRange)
         {
+            Log("ChooseAttack: MELEE");
             StartMeleeChain();
             TransitionTo(State.Attacking);
             return;
@@ -175,14 +189,17 @@ public class BossFSM : MonoBehaviour
 
         if (CanDoRanged(d))
         {
+            Log("ChooseAttack: RANGED");
             StartRanged();
             TransitionTo(State.Attacking);
             return;
         }
 
+        Log("ChooseAttack: NONE");
         nextThinkTime = Time.time + thinkInterval;
         TransitionTo(State.Idle);
     }
+
 
     void StartMeleeChain()
     {
@@ -199,6 +216,8 @@ public class BossFSM : MonoBehaviour
 
     void StartRanged()
     {
+        Log("StartRanged");
+
         movement.BeginAttackRotation();
         movement.Stop();
 
@@ -208,6 +227,7 @@ public class BossFSM : MonoBehaviour
         comboChecked = true;
         slowFollowEndTime = 0f;
     }
+
 
     void HandleAttackStartTracking()
     {
@@ -223,17 +243,25 @@ public class BossFSM : MonoBehaviour
         if (Time.time < comboCheckTime) return;
 
         if (d <= meleeRange && Random.value <= comboChance)
+        {
+            Log("Chain: CONTINUE");
             attack.ContinueChain();
+        }
+        else
+        {
+            Log("Chain: END");
+        }
 
         comboChecked = true;
     }
 
+
     bool CanDoRanged(float distanceToPlayer)
     {
-        return Time.time >= rangedReadyTime &&
-               distanceToPlayer <= rangedRange &&
-               distanceToPlayer > meleeRange;
+        bool ready = Time.time >= rangedReadyTime && distanceToPlayer <= rangedRange && distanceToPlayer > meleeRange;
+        return ready;
     }
+
 
     bool IsInAttackState()
     {
@@ -246,6 +274,9 @@ public class BossFSM : MonoBehaviour
         if (distanceToPlayer > meleeRange) return;
         if (Random.value > repositionChance) return;
 
+        Log("Reposition: DASH AWAY");
+
         movement.DashAwayFromTarget(repositionDistance, repositionDuration);
     }
+
 }

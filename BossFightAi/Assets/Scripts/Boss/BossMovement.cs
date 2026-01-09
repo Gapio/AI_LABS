@@ -52,9 +52,13 @@ public class BossMovement : MonoBehaviour
     public void BeginAttackRotation()
     {
         if (!AgentActive) return;
+
         agent.updateRotation = false;
+
+        currentYaw = transform.eulerAngles.y;
         yawVel = 0f;
     }
+
 
     public void StartChase()
     {

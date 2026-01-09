@@ -879,6 +879,7 @@ MonoBehaviour:
   maxSpeed: 6
   acceleration: 45
   deceleration: 65
+  turnSmoothTime: 0.06
   playerCamera: {fileID: 330585545}
   enemy: {fileID: 406117444}
   dashSpeed: 21
@@ -1096,6 +1097,7 @@ MonoBehaviour:
   attack: {fileID: 468825157}
   movement: {fileID: 468825162}
   animator: {fileID: 468825158}
+  debugLogs: 1
 --- !u!195 &468825161
 NavMeshAgent:
   m_ObjectHideFlags: 0

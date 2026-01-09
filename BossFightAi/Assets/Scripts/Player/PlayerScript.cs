@@ -49,10 +49,6 @@ public class PlayerScript : MonoBehaviour
         StartCoroutine(DashRoutine());
     }
 
-    void Update()
-    {
-        //if (enemy) transform.LookAt(enemy, Vector3.up);
-    }
 
     void FixedUpdate()
     {
@@ -72,7 +68,17 @@ public class PlayerScript : MonoBehaviour
 
         rb.linearVelocity = new Vector3(newHoriz.x, v.y, newHoriz.z);
 
-        if (enemy) transform.LookAt(enemy, Vector3.up);
+
+
+        Vector3 lookPos = enemy.position;
+        lookPos.y = transform.position.y;
+
+        transform.LookAt(lookPos);
+    }
+
+    void LateUpdate()
+    {
+        
     }
 
     IEnumerator DashRoutine()
