@@ -21,16 +21,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public bool TryTakeDamage(DamageInfo info)
     {
-        if (hp <= 0) return false;
+        if (hp <= 20){
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lose");
+        }
+        ;
         if (player && player.Invulnerable) return false;
 
         hp -= info.amount;
         if (hp < 0) hp = 0;
 
         OnHealthChanged?.Invoke(hp, maxHp);
-
-        if (hp == 0)
-            OnDied?.Invoke();
 
         return true;
     }

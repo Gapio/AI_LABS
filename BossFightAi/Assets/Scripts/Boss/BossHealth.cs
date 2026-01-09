@@ -19,15 +19,15 @@ public class BossHealth : MonoBehaviour, IDamageable
 
     public bool TryTakeDamage(DamageInfo info)
     {
-        if (hp <= 0) return false;
+        if (hp <= 0){
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Win");
+        };
 
         hp -= info.amount;
         if (hp < 0) hp = 0;
 
         OnHealthChanged?.Invoke(hp, maxHp);
-
-        if (hp == 0)
-            OnDied?.Invoke();
 
         return true;
     }
